@@ -28,3 +28,11 @@
     transform: rotate(360deg);
   }
 }
+
+.marg-bot-zero {
+  margin-bottom: 0;
+}
+
+.marg-top-sm {
+  margin-top: .25rem;
+}
