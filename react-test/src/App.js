@@ -24,21 +24,39 @@ const getPicsArr = (desc, changePicsArr) => {
   }
 };
 
+const getAlt = (data) => {
+  const url = data.url;
+  let alt = url.replace('https://www.pexels.com/photo/', '');
+  
+  alt = alt.replace(/\-/g, ' ');
+  alt = alt.replace(/\d/g, '');
+  alt = alt.replace(/\//g, '');
+  
+  return alt.trim();
+}
+
 const ShowPics = (props) => {
   return(
     props.picsArr.map((photo) => {
-      console.log('sanity check');
-      //get photo alt through regex of photo.url
-      const alt = '';
+      const alt = getAlt(photo);
 
       return (
         <li key={photo.id}>
-          <a href={photo.url}>
-            <figure>
-              <img src={photo.src.original} alt={alt} height={photo.height} width={photo.width} />
-              <figcaption>by <a href={photo.photographer_url}>{photo.photographer}</a></figcaption>
-            </figure>
-          </a>
+          <figure className="gridCenter">
+            <img 
+              src={photo.src.original}
+              srcSet={
+                `${photo.src.small} 1x, 
+                ${photo.src.medium} 2x, 
+                ${photo.src.large} 3x,
+                ${photo.src.original} 4x`
+              }
+              alt={alt} 
+              height={photo.height} 
+              width={photo.width} 
+            />
+            <figcaption><a href={photo.url}>photo</a> by <a href={photo.photographer_url}>{photo.photographer}</a></figcaption>
+          </figure>  
         </li>
       );  
     })
@@ -139,14 +157,14 @@ function App() {
   getPicsArr(weather, changePicsArr);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="App gridCenter">
+      <header className="App-header gridCenter">
         <MemoWeatherInCity city={city} weather={weather} />
       </header>
       <CityForm changeCity={changeCity}/>
       
       {weather ? 
-        <ul>
+        <ul className="gridCenter">
           <MemoShowPics picsArr={picsArr} />
         </ul> 
         : 
