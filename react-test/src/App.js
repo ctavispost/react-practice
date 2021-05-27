@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createClient } from 'pexels';
 import './App.css';
 
-//track calls to Pexels API to make sure we don't make too many
+//track calls to Pexels API to make sure we don't make too many (this is a temporary measure)
 let index = 0;
 
 const getPicsArr = (desc, changePicsArr) => {
@@ -45,12 +45,12 @@ const ShowPics = (props) => {
           <figure className="gridCenter">
             <img 
               src={photo.src.original}
-              srcSet={
+              /*srcSet={
                 `${photo.src.small} 1x, 
                 ${photo.src.medium} 2x, 
                 ${photo.src.large} 3x,
                 ${photo.src.original} 4x`
-              }
+              }*/
               alt={alt} 
               height={photo.height} 
               width={photo.width} 
@@ -115,8 +115,9 @@ const CityForm = (props) => {
   };
   
   return (
-    <form>
+    <form className="marg-bot-md">
       <label>
+        City
         <input
           type="text"
           value={city}
@@ -130,7 +131,7 @@ const CityForm = (props) => {
 
 const WeatherInCity = (props) => {
   return(
-    <div>
+    <div className="gridCenter">
       <h1 className="marg-bot-zero">
         {props.weather ? props.weather : 'getting weather'}
       </h1>
@@ -164,7 +165,7 @@ function App() {
       <CityForm changeCity={changeCity}/>
       
       {weather ? 
-        <ul className="gridCenter">
+        <ul className="container">
           <MemoShowPics picsArr={picsArr} />
         </ul> 
         : 
