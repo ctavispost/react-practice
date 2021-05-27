@@ -165,7 +165,7 @@ function App() {
       <CityForm changeCity={changeCity}/>
       
       {weather ? 
-        <ul className="container">
+        <ul className="container marg-bot-md">
           <MemoShowPics picsArr={picsArr} />
         </ul> 
         : 
